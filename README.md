@@ -19,13 +19,13 @@ The modules that have been used are:
 
 The crawler.py file uses two command line arguments:
 
-The first is the starting url
+  1) The first is the starting url
 
-The second argument is an optional argument. It is the depth to which you want the crawler to go to.
+  2) The second argument is an optional argument. It is the depth to which you want the crawler to go to.
 The default value is 20
 
-to run crawler.py: python crawler.py 'http://www.gocardless.com/' 3
+To run crawler.py: python crawler.py 'http://www.gocardless.com/' 3
 
-to run test.py: python test.py
+To run test.py: python test.py
 
 The crawler outputs the assets and their corresponding urls.

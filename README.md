@@ -17,7 +17,7 @@ The modules that have been used are:
 11) unittest
 
 
-The crawler.py file uses two command line options:
+The crawler.py file uses two command line arguments:
 
 The first is the starting url
 
@@ -28,4 +28,4 @@ to run crawler.py: python crawler.py 'http://www.gocardless.com/' 3
 
 to run test.py: python test.py
 
-The crawler outputs the assets to their corresponding urls.
+The crawler outputs the assets and their corresponding urls.

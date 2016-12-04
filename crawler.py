@@ -46,6 +46,24 @@ def crawl_page(links,first_url):
             else:
                 continue
     return url_link
+
+
+# this function gets the static files from pages
+def get_static_links(url):
+    #open page and parse html
+    page = urllib.urlopen(url).read()
+    parsed_html = BeautifulSoup(page,"html.parser")
+    # get static files and store them as a list
+    link_images = [str(link['href']) for link in parsed_html.find_all('link', href=re.compile(r'(.*\.(?:jpg|png|jpeg|giff|tiff))'))]
+    img = [str(link['src']) for link in parsed_html.find_all('img',src=True)]
+    css = [str(link['href']) for link in parsed_html.find_all('link', rel="stylesheet")]
+    script = [str(link['src']) for link in parsed_html.findAll('script',src=True)]
+    # concatenate lists
+    assets = list(itertools.chain(link_images, img, css,script))
+
+    #return dictionary of of url an stati files
+    return {'url': url, 'assets': assets}
+
 # this function stores crawled pages to a certain depth using breadth first search
 def crawler_bfs(starting_url,depth):
     #check if url is valid
@@ -81,25 +99,6 @@ def crawler_bfs(starting_url,depth):
             counter = depth+1
     return visited_queue
 
-# this function gets the static files from pages
-def get_static_links(url):
-    #open page and parse html
-    page = urllib.urlopen(url).read()
-    parsed_html = BeautifulSoup(page,"html.parser")
-    # get static files and store them as a list
-    link_images = [str(link['href']) for link in parsed_html.find_all('link', href=re.compile(r'(.*\.(?:jpg|png|jpeg|giff|tiff))'))]
-    img = [str(link['src']) for link in parsed_html.find_all('img',src=True)]
-    css = [str(link['href']) for link in parsed_html.find_all('link', rel="stylesheet")]
-    script = [str(link['src']) for link in parsed_html.findAll('script',src=True)]
-    # concatenate lists
-    assets = list(itertools.chain(link_images, img, css,script))
-
-
-
-
-    #return dictionary of of url an stati files
-    return {'url': url, 'assets': assets}
-
 # print out urls and heir static files.
 # take imputs from the command line
 if __name__ == '__main__':
@@ -110,5 +109,6 @@ if __name__ == '__main__':
         depth = int(sys.argv[2])
     else:
         depth = 20
-    STDOUT = json.dumps([get_static_links(reached_links) for reached_links in crawler_bfs(first_url,depth)],indent=4, separators=(',', ': '))
-    print STDOUT
+    # output to STDOUT
+    output = json.dumps([get_static_links(reached_links) for reached_links in crawler_bfs(first_url,depth)],indent=4, separators=(',', ': '))
+    sys.stdout.write(output)

@@ -27,3 +27,5 @@ The default value is 20
 to run crawler.py: python crawler.py 'http://www.gocardless.com/' 3
 
 to run test.py: python test.py
+
+The crawler outputs the assets to their corresponding urls.

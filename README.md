@@ -21,8 +21,8 @@ The crawler.py file uses two command line arguments:
 
   1) The first is the starting url
 
-  2) The second argument is an optional argument. It is the depth to which you want the crawler to go to.
-The default value is 20
+  2) The second argument is an optional argument. It is the depth to which you want the crawler to go to. The default value is 20
+
 
 To run crawler.py: python crawler.py 'http://www.gocardless.com/' 3
 
